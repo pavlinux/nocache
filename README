@@ -164,3 +164,8 @@ Most of the application logic is from Tobias Oetiker's patch for
 `rsync` <http://insights.oetiker.ch/linux/fadvise.html>. Note however,
 that `rsync` uses sockets, so if you try a `nocache rsync`, only
 the local process will be intercepted.
+
+## Coverity Scan
+
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/21110/badge.svg)](https://scan.coverity.com/projects/pavlinux-nocache)
+
