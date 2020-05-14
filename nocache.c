@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
+#include <malloc.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -113,6 +114,10 @@ static void init(void)
     if(max_fds == 0)
         return;  /* There's nothing to do for us here. */
 
+    mlockall(MCL_CURRENT | MCL_FUTURE);
+    mallopt(M_TRIM_THRESHOLD, -1);
+    mallopt(M_MMAP_MAX, 0);
+
     init_mutexes();
     /* make sure to re-initialize mutex if forked */
     pthread_atfork(NULL, NULL, init_mutexes);
@@ -212,6 +217,7 @@ static void destroy(void)
     free(fds_lock);
     fds_lock = NULL;
     pthread_mutex_unlock(&fds_iter_lock);
+    munlockall();
 }
 
 int open(const char *pathname, int flags, mode_t mode)
