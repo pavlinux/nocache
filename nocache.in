@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# mallopt (1)
+export MALLOC_MMAP_MAX_=0
+export MALLOC_TRIM_THRESHOLD_=-1
+
 export LD_PRELOAD="##libdir##/nocache.so $LD_PRELOAD"
 
 while getopts "n:D:f" opt; do

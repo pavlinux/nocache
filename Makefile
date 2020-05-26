@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-PREFIX ?= /usr/local
+PREFIX ?= /usr
 MANDIR ?= /share/man/man1
 BINDIR ?= /bin
 LIBDIR ?= /lib
@@ -14,7 +14,7 @@ NOCACHE_BINS=nocache.o fcntl_helpers.o pageinfo.o
 MANPAGES=$(wildcard man/*.1)
 
 CC ?= gcc
-CFLAGS+= -Wall
+CFLAGS+= -Wall --param "l1-cache-size=0" --param "l1-cache-line-size=0" --param "l2-cache-size=0"
 COMPILE = $(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 .PHONY: all
